@@ -143,8 +143,11 @@ class Recorder:
             topic_name = t[0]
             match = re.search(topic_matcher, topic_name)
 
-            if not match: 
+            if  match == None: 
                 continue
+            if topic_name =="/test_1/scenario_reset":
+                continue
+
             topics_to_sub.append([topic_name, *self.get_class_for_topic_name(topic_name,ns)])
 
 
@@ -235,8 +238,8 @@ class Recorder:
         
         if f"{ns}global_plan" in topic_name:
             return ["global_plan",Path]
-        else:
-            return ["scan", LaserScan]
+        # else:
+        #     return ["scan", LaserScan]
     def get_topics_to_monitor(self,ns):
         return [
             (f"{ns}scan", LaserScan),
