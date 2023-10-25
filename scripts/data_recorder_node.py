@@ -125,7 +125,7 @@ class Recorder:
         self.take_sencario = os.path.join(rospy.get_param('/scenario_path'),rospy.get_param('/scenario_name')+".json")
         self.model = rospy.get_param("/model")
         self.dir = rospkg.RosPack().get_path("evaluation")
-        self.result_dir = os.path.join(self.dir, "data", datetime.now().strftime("%d-%m-%Y_%H-%M-%S")) + "_" + rospy.get_namespace().replace("/", "")+ "_"+ rospy.get_param("/training_model")+"_pomdp_"+rospy.get_param("/is_pomdp")
+        self.result_dir = os.path.join(self.dir, "data", datetime.now().strftime("%d-%m-%Y_%H-%M-%S")) + "_" + rospy.get_namespace().replace("/", "")+ "_"+ rospy.get_param("/training_model")+"_pomdp_"+str(rospy.get_param("/is_pomdp"))
         try:
             os.mkdir(self.result_dir)
         except:
