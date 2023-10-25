@@ -125,7 +125,7 @@ class Recorder:
         self.take_sencario = os.path.join(rospy.get_param('/scenario_path'),rospy.get_param('/scenario_name')+".json")
         self.model = rospy.get_param("/model")
         self.dir = rospkg.RosPack().get_path("evaluation")
-        self.result_dir = os.path.join(self.dir, "data", datetime.now().strftime("%d-%m-%Y_%H-%M-%S")) + "_" + rospy.get_namespace().replace("/", "")
+        self.result_dir = os.path.join(self.dir, "data", datetime.now().strftime("%d-%m-%Y_%H-%M-%S")) + "_" + rospy.get_namespace().replace("/", "")+ "_"+ rospy.get_param("/training_model")+"_pomdp_"+rospy.get_param("/is_pomdp")
         try:
             os.mkdir(self.result_dir)
         except:
@@ -220,6 +220,7 @@ class Recorder:
             return yaml.safe_load(file)
 
     def get_class_for_topic_name(self, topic_name, ns):
+        rospy.logwarn(f"[topic_name]:{topic_name}")
         if f"{ns}scan" in topic_name:
             return ["scan", LaserScan]
 
@@ -234,7 +235,8 @@ class Recorder:
         
         if f"{ns}global_plan" in topic_name:
             return ["global_plan",Path]
-        
+        else:
+            return ["scan", LaserScan]
     def get_topics_to_monitor(self,ns):
         return [
             (f"{ns}scan", LaserScan),
