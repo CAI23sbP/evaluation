@@ -344,8 +344,6 @@ class PathVisualizer:
         plot(title, save_name)
 
 
-
-
     def create_best_plots(self, dataset, title, save_name, should_add_obstacles=False, should_add_collisions=False):
         """
             - Only plot the paths were the goal is reached
@@ -441,7 +439,7 @@ class PathVisualizer:
     def ros_to_real_coord(self, coord):
         new_coord = [(c - self.map_content["origin"][i]) / self.map_content["resolution"] for i, c in enumerate(coord)][:2]
 
-        new_coord[1] = - new_coord[1] + self.map_img.shape[1] # - (self.map_content["origin"][0] / self.map_content["resolution"])
+        new_coord[1] =  -new_coord[1] + self.map_img.shape[0] 
 
         return new_coord
 
